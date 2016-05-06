@@ -9,7 +9,15 @@ module.exports = generators.Base.extend({
             default: this.appname,
             store: true
         }).then(function (answers) {
+            this.answers = answers;
             this.log(answers);
         }).bind(this);
+    }
+
+    writing: function () {
+        this.fs.copyTpl(
+            this.templatePath('_.sketchplugin'),
+            this.destinationPath(this.answers.plugin + '.sketchplugin')
+        );
     }
 });
