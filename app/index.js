@@ -6,7 +6,8 @@ module.exports = generators.Base.extend({
             plugin: 'plugin name',
             description: 'description',
             author: 'author name',
-            default: this.appname
+            default: this.appname,
+            store: true
         }).then(function (answers) {
             this.log(answers);
         }).bind(this);
