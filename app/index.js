@@ -2,17 +2,26 @@ var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
     prompting: function () {
-        return this.prompt({
-            plugin: 'plugin name',
-            description: 'description',
-            author: 'author name',
-            default: this.appname,
-            store: true
-        }).then(function (answers) {
-            this.answers = answers;
-            this.log(answers);
-        }).bind(this);
-    }
+        return this.prompt([
+            {
+                name    : 'pluginName',
+                message : 'What will your plugin be named?'
+            },
+            {
+                name    : 'pluginDescription',
+                message : 'Description',
+                default : ''
+            },
+            {
+                name    : 'authorName',
+                message : 'Author name',
+                default : '',
+                store   : true
+            }
+        ]).then(function (answers) {
+          this.log(answers.name.pluginName);
+        }.bind(this));
+    },
 
     writing: function () {
         this.fs.copyTpl(
