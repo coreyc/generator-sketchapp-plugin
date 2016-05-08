@@ -1,8 +1,14 @@
+'use strict';
+
 var generators = require('yeoman-generator');
 
-module.exports = generators.Base.extend({
+var SketchAppPluginGenerator = generators.Base.extend({
     prompting: function () {
-        return this.prompt([
+        var done = this.async();
+
+        this.log('Please answer the prompts that follow');
+
+        var prompts = [
             {
                 name    : 'pluginName',
                 message : 'What will your plugin be named?'
@@ -18,15 +24,22 @@ module.exports = generators.Base.extend({
                 default : '',
                 store   : true
             }
-        ]).then(function (answers) {
-          this.log(answers.name.pluginName);
+        ];
+
+        this.prompt(prompts, function(answers) {
+            this.pluginName = answers.pluginName;
+            this.pluginDescription = answers.pluginDescription;
+            this.authorName = answers.authorName;
+            done();
         }.bind(this));
     },
 
     writing: function () {
         this.fs.copyTpl(
             this.templatePath('_.sketchplugin'),
-            this.destinationPath(this.answers.plugin + '.sketchplugin')
+            this.destinationPath('app/templates/' + this.pluginName + '.sketchplugin')
         );
     }
 });
+
+module.exports = SketchAppPluginGenerator;

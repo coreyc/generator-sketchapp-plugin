@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Yeoman generator for Sketch app plugin",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "yeoman-generator",
     "sketch",
