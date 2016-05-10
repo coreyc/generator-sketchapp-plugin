@@ -1,5 +1,5 @@
 # generator-sketchapp-plugin
-Yeoman generator for developing Sketch app plugins
+Yeoman generator for developing Sketch app plugins, dependency-free (except yeoman-generator obviously)
 
 ## First step
 Make sure Yeoman is installed. From a command line, run:
@@ -15,7 +15,7 @@ npm install generator-sketchapp-plugin
 If you want to install the generator globally, then use the ```-g``` flag.
 
 ## Run
-Lastly, create a directory, ```cd``` into it, and run 
+Lastly, create a directory, ```cd``` into it, and run
 ```
 yo sketchapp-plugin
 ```

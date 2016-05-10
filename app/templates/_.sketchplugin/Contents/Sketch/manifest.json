@@ -1,0 +1,12 @@
+{
+    "name": "<%= pluginName %>",
+    "description": "<%= pluginDescription %>",
+    "author": "<%= authorName %>",
+    "email": "<%= authorEmail %>",
+    "homepage": "<%= authorHomepage %>",
+    "identifier": "<%= pluginIdentifier %>",
+    "version": "1.0.0",
+    "menu": {
+        "isRoot": "<%= setRoot %>"
+    }
+}
