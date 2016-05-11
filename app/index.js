@@ -12,6 +12,10 @@ var SketchAppPluginGenerator = generators.Base.extend({
             {
                 name    : 'pluginName',
                 message : 'What will your plugin be named?',
+                validate: function(input) {
+                    var rgx = new RegExp("^[a-zA-Z0-9-]+$");
+                    return rgx.test(input);
+                },
                 default : this.appname
             },
             {
@@ -38,7 +42,7 @@ var SketchAppPluginGenerator = generators.Base.extend({
                 store   : true
             },
             {
-                type    : 'boolean',
+                type    : 'confirm',
                 name    : 'setRoot',
                 message : 'Set this plugin to the root of the menu?',
                 default : false
@@ -46,14 +50,8 @@ var SketchAppPluginGenerator = generators.Base.extend({
         ];
 
         this.prompt(prompts, function(answers) {
-            // TODO: add merge function here instead of explicitly mapping answers
-            this.pluginName = answers.pluginName;
-            this.pluginDescription = answers.pluginDescription;
-            this.authorName = answers.authorName;
-            this.authorEmail = answers.authorEmail;
-            this.authorHomepage = answers.authorHomepage;
-            this.setRoot = answers.setRoot;
-            this.pluginIdentifier = 'com.sketch.' + this.pluginName
+            utils.extend(this, answers);
+            this.pluginIdentifier = 'com.sketch.' + this.pluginName;
             done();
         }.bind(this));
     },
@@ -65,11 +63,12 @@ var SketchAppPluginGenerator = generators.Base.extend({
         var destinationPath = 'app/templates/' + sketchPlugin;
 
         this.fs.copy(
-            this.templatePath('_.sketchplugin'),
-            this.destinationPath(destinationPath)
+            this.templatePath('_.sketchplugin/Contents/Sketch/_.cocoascript'),
+            this.destinationPath(destinationPath + '/Contents/Sketch/' +
+                this.pluginName + '.cocoascript')
         );
         this.fs.copyTpl(
-            this.templatePath(sketchPlugin + '/Contents/Sketch/manifest.json'),
+            this.templatePath('_.sketchplugin/Contents/Sketch/manifest.json'),
             this.destinationPath(destinationPath + '/Contents/Sketch/manifest.json'),
             {
                 pluginName: this.pluginName,
@@ -81,6 +80,7 @@ var SketchAppPluginGenerator = generators.Base.extend({
                 setRoot: this.setRoot
             }
         );
+        done();
     }
 });
 
