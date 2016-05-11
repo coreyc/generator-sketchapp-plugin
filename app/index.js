@@ -1,6 +1,7 @@
 'use strict';
 
 var generators = require('yeoman-generator');
+var utils = require('./utils');
 
 var SketchAppPluginGenerator = generators.Base.extend({
     prompting: function () {
